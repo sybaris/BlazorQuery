@@ -29,6 +29,9 @@ blazorQueryInterop.BQ_CSS = (selector, style, styleValue) => { $(selector).css(s
 blazorQueryInterop.BQ_Height_Set = (selector, height) => { $(selector).height(height); };
 blazorQueryInterop.BQ_Width_Set = (selector, width) => { $(selector).width(width); };
 blazorQueryInterop.BQ_Text_Set = (selector, text) => { $(selector).text(text); };
+blazorQueryInterop.BQ_Text_Func = (selector, dotNetObjectRef) => {
+    $(selector).text(async function (index, text) { let retValue = await dotNetObjectRef.invokeMethodAsync("ActionCallback", index, text); console.log(retValue); return retValue; });
+};
 blazorQueryInterop.BQ_FadeOut = (selector, dotNetObjectRef) => {
     $(selector).fadeOut(2000,
         function () {
@@ -36,7 +39,20 @@ blazorQueryInterop.BQ_FadeOut = (selector, dotNetObjectRef) => {
         });
 };
 
+blazorQueryInterop.BQ_Load = (selector, url, data, dotNetObjectRefComplete) => {
+    $(selector).load(url, data, 
+        function (responseText, textStatus, jqXHR) {
+            dotNetObjectRefComplete.invokeMethodAsync("ActionCallback", responseText, textStatus, jqXHR);
+        });
+};
+
 // Functions - Chain-enders
 blazorQueryInterop.BQ_Height_Get = (selector) => { return $(selector).height(); };
 blazorQueryInterop.BQ_Width_Get = (selector) => { return $(selector).width(); };
 blazorQueryInterop.BQ_Text_Get = (selector) => { return $(selector).text(); };
+
+function jpp() {
+    $("#list li").text(function (index, text) {
+        return "item number " + (index + 1);
+    });
+}

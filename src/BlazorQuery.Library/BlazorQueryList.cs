@@ -144,6 +144,7 @@ namespace BlazorQuery.Library
         public const string Submit = BlazorQueryInterop + "." + "BQ_Submit";
         public const string Text_Set = BlazorQueryInterop + "." + "BQ_Text_Set";
         public const string Text_Get = BlazorQueryInterop + "." + "BQ_Text_Get";
+        public const string Text_Func = BlazorQueryInterop + "." + "BQ_Text_Func";
         public const string ToArray = BlazorQueryInterop + "." + "BQ_ToArray";
         public const string Toggle = BlazorQueryInterop + "." + "BQ_Toggle";
         public const string ToggleClass = BlazorQueryInterop + "." + "BQ_ToggleClass";
